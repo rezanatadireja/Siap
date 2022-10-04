@@ -75,6 +75,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Login &mdash; Siap</title>
@@ -89,7 +90,6 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/stisla/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/stisla/assets/css/components.css')}}">
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 </head>
 
 <body>
