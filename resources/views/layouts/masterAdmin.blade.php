@@ -7,6 +7,7 @@
         <meta name="user-id" content="{{ Auth::check() ? Auth::user()->id : '' }}">
         <meta name="description" content="{{ config('app.name', 'Laravel') }}">
         <title>{{ config('app.name') }} | @yield('title_name')</title>
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <link rel="icon" type="image/x-icon" href="{{ asset('icon-layanan/mjl2.png') }}">
         <!-- General CSS Files -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

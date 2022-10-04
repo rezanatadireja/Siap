@@ -89,6 +89,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/stisla/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/stisla/assets/css/components.css')}}">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 </head>
 
 <body>
