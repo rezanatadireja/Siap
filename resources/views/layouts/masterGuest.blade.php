@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="user-id" content="{{ Auth::check() ? Auth::user()->id : '' }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('icon-layanan/mjl2.png') }}">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <title>Disdukcapil Kabupaten Majalengka | @yield('title_name')</title>
         <!-- General CSS Files -->
         <link
