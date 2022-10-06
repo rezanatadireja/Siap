@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             PermissionsTableSeeder::class,
-            JenisPelayananSeeder::class,
+            // JenisPelayananSeeder::class,
             ProvincesSeeder::class,
             CitiesSeeder::class,
             DistrictsSeeder::class,
