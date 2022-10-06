@@ -36,7 +36,8 @@ class Penduduk extends Model
 
     public function kecamatan()
     {
-        return $this->belongsTo(Regency::class);
+        // return $this->belongsTo(Regency::class);
+        return $this->belongsTo(District::class);
     }
 
     public function desa()

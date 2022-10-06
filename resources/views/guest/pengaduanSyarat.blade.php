@@ -59,6 +59,7 @@
                                             <tbody class="text-center">
                                                 <tr>
                                                     <th>No Kartu Keluarga</th>
+                                                    <th>Kecamatan</th>
                                                     <th>Email</th>
                                                     <th>No. HP</th>
                                                     <th>Jenis Pelayanan Pengaduan</th>
@@ -66,7 +67,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>{{$pengaduan->user->penduduk->no_kk}}</td>
-                                                    <td><a href="#">{{ $pengaduan->user->email }}</a></td>
+                                                    <td>{{ $pengaduan->user->email }}</td>
                                                     <td>{{$pengaduan->user->penduduk->no_hp}}</td>
                                                     <td>
                                                         <i>{{ $pengaduan->jenisPengaduan->nama}}</i>

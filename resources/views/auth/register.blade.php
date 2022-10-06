@@ -119,7 +119,7 @@
                                 <div class="col-sm-12 col-md-7">
                                 <select class="form-control select2" id="kecamatan" name="kecamatan">
                                         <option value="0">Pilih Kecamatan</option>
-                                    @foreach ($kecamatan as $key => $value)
+                                    @foreach ($kecamatan->districts as $key => $value)
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>

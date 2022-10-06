@@ -23,7 +23,7 @@ use DataTables;
 
 
 class PendudukController extends Controller
-{    
+{
     public function getJenisPelayanan()
     {
         $sub_bidang_id            = request()->get('sub_bidang_id');
@@ -60,8 +60,10 @@ class PendudukController extends Controller
     {
         // Method Desa/Kelurahan
         $districts_id = request()->get('districts_id');
-        $villages = Village::where('district_id', '=', $districts_id)->get();
-        return response()->json($villages);
+        $villages = \Indonesia::findDistrict($districts_id, ['villages']);
+        $desa = $villages->villages;
+
+        return response()->json($desa);
     }
 
     public function index(Request $request)
@@ -102,16 +104,16 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $request->validate(
-                [
-                    'nama' => 'required',
-                    'username' => 'required',
-                    'email' => 'required',
-                    'password' => 'required',
-                    'nik' => 'required',
-                    'no_kk' => 'required',
-                    'no_hp' => 'required',
-                ]
-            );
+            [
+                'nama' => 'required',
+                'username' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'nik' => 'required',
+                'no_kk' => 'required',
+                'no_hp' => 'required',
+            ]
+        );
 
         $warga = User::create([
             'username' => $request->username,
@@ -120,21 +122,20 @@ class PendudukController extends Controller
         ]);
 
         $warga->assignRole('warga');
-        
+
         $penduduk  = Penduduk::create([
             'nama'          => $request->nama,
             'nik'           => $request->nik,
             'no_kk'         => $request->no_kk,
-            'no_hp'         => $request->no_hp,     
-            'district_id'   => $request->kecamatan, 
+            'no_hp'         => $request->no_hp,
+            'district_id'   => $request->kecamatan,
             'village_id'    => $request->desa,
             'user_id'       => $warga->id,
         ]);
 
-        if($penduduk)
-        {
+        if ($penduduk) {
             return response()->json(['code' => 1, 'msg' => 'Data Penduduk Berhasil Disimpan.']);
-        }else{
+        } else {
             return response()->json(['code' => 0, 'msg' => 'Data Penduduk Gagal Disimpan.']);
         }
     }
@@ -175,7 +176,7 @@ class PendudukController extends Controller
             'jenis_pengaduan_id.required' => 'Pastikan jenis pelayanan pengaduan sudah dipilih.'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(['code' => 2, 'error' => $validator->messages()]);
         }
 
@@ -184,11 +185,11 @@ class PendudukController extends Controller
 
         if ($kuota == 0) {
             return response()->json(['code' => 0]);
-        }else{
+        } else {
             $pelayanan = JenisPengaduan::where('id', $request->jenis_pengaduan_id)->first();
             $pelayanan->kuota -= 1;
             $pelayanan->update();
-            
+
             $pengaduan = new Pengaduan();
             $pengaduan->user_id             = $request->user_id;
             $pengaduan->jenis_pengaduan_id  = $request->jenis_pengaduan_id;
@@ -196,21 +197,20 @@ class PendudukController extends Controller
             $pengaduan->detail              = 'baru';
             $pengaduan->no_pengaduan        = $this->nomorPengaduan();
             $pengaduan->save();
-            
+
             $id = User::first();
-        
+
             $data = [
                 'user_id'           => $request->user_id,
                 'name'              => $request->user_name,
                 'jenis_pelayanan'   => $pengaduan->jenisPengaduan->nama,
                 'status_pengaduan'  => $pengaduan->status
             ];
-        
+
             Notification::send($id, new KirimPengaduanNotification($data));
 
             return response()->json(['code' => 1, 'id' => $pengaduan->id]);
         }
-        
     }
     // $pelayanan = JenisPengaduan::where('id',$request->input('jenis_pelayanan'))->toArray();
     // $cek = (int)$pelayanan;
@@ -221,7 +221,7 @@ class PendudukController extends Controller
         $data = Penduduk::where('id', $id)->first();
         $data->user()->delete();
         $data->delete();
-        
+
         return back();
     }
 
@@ -231,8 +231,7 @@ class PendudukController extends Controller
         $kecamatan = District::all();
         $desa = Village::all();
 
-        if($penduduk)
-        {
+        if ($penduduk) {
             return response()->json([
                 'code' => 1,
                 'penduduk' => $penduduk,
@@ -241,7 +240,7 @@ class PendudukController extends Controller
                 'kecamatan' => $kecamatan,
                 'desa' => $desa,
             ]);
-        }else{
+        } else {
             return response()->json([
                 'code' => 0,
                 'msg' => 'Data Penduduk Tidak Ada.',
@@ -253,7 +252,7 @@ class PendudukController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-    
+
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'username' => 'required',
@@ -270,15 +269,12 @@ class PendudukController extends Controller
             'no_kk.required' => 'Nomor Kartu Keluarga tidak boleh kosong',
         ]);
 
-        if ($validator->fails()) 
-        {
-                return response()->json([
-                    'status' => 400, 
-                    'errors' =>$validator->messages(),
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
             ]);
-        }
-        else 
-        {
+        } else {
             $penduduk = Penduduk::find($id);
             $penduduk->nama = $request->input('nama');
             $penduduk->nik = $request->input('nik');
@@ -297,7 +293,6 @@ class PendudukController extends Controller
             // $user->update();
 
             return response()->json(['status' => 200, 'msg' => 'Data Penduduk Berhasil Di Update.']);
-            
         }
     }
 }

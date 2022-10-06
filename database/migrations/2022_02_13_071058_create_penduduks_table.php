@@ -15,8 +15,10 @@ class CreatePenduduksTable extends Migration
     {
         Schema::create('penduduks', function (Blueprint $table) {
             $table->id();
-            $table->char('district_id', 7);
-            $table->char('village_id', 10);
+            // $table->char('district_id', 7);
+            // $table->char('village_id', 10);
+            $table->foreignId('district_id')->constrained('indonesia_districts')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('village_id')->constrained('indonesia_villages')->onUpdate('cascade')->onDelete('restrict');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama');
             $table->string('nik');
@@ -24,15 +26,15 @@ class CreatePenduduksTable extends Migration
             $table->string('no_hp');
             $table->timestamps();
 
-            $table->foreign('district_id')
-            ->references('id')
-                ->on('districts')
-                ->onUpdate('cascade')->onDelete('restrict');
+            // $table->foreign('district_id')
+            //     ->references('id')
+            //     ->on('districts')
+            //     ->onUpdate('cascade')->onDelete('restrict');
 
-            $table->foreign('village_id')
-                ->references('id')
-                ->on('villages')
-                ->onUpdate('cascade')->onDelete('restrict');
+            // $table->foreign('village_id')
+            //     ->references('id')
+            //     ->on('villages')
+            //     ->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

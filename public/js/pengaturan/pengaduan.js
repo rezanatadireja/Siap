@@ -58,7 +58,9 @@ $(document).ready(function(){
     // Kecamatan
     $('#kecamatan').on('change', function (e) {
         var districts_id = e.target.value;
+        // console.log(districts_id)
         $.get('/village?districts_id=' + districts_id, function (data) {
+            console.log(data)
             $('#desa').empty();
             $('#desa').append('<option value="0" disable="true" selected="true">Pilih Desa</option>');
             $.each(data, function (index, villagesObj) {
