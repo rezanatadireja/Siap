@@ -22,12 +22,12 @@ class CreateRegenciesTables extends Migration
     {
         Schema::create('regencies', function (Blueprint $table) {
             $table->char('id', 4)->index();
-            $table->foreignId('province_id', 2)->constrained('provinces')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('province_id', 2);
             $table->string('name', 50);
-            // $table->foreign('province_id')
-            //     ->references('id')
-            //     ->on('provinces')
-            //     ->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('province_id')
+                ->references('id')
+                ->on('provinces')
+                ->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
