@@ -9,7 +9,7 @@ class JenisPengaduan extends Model
 {
     use HasFactory;
 
-    protected $table = 'Jenis_Pengaduans';
+    // protected $table = 'Jenis_Pengaduans';
 
     protected $guarded = [];
 

@@ -11,7 +11,7 @@ class JenisSyarat extends Model
 
     protected $guarded = [];
 
-    protected $table = 'Jenis_Syarats';
+    // protected $table = 'Jenis_Syarats';
 
     protected $fillable = ['jenis_pengaduan_id', 'nama'];
 

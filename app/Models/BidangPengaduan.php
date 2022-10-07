@@ -9,7 +9,7 @@ class BidangPengaduan extends Model
 {
     use HasFactory;
 
-    protected $table = 'Bidang_Pengaduans';
+    // protected $table = 'Bidang_Pengaduans';
 
     protected $fillable = ['name', 'id'];
 
