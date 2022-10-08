@@ -162,7 +162,12 @@ class PengaduanController extends Controller
         }
     }
 
-    public function adminIndex(Request $request)
+    public function adminIndex()
+    {
+        return view('admin.pengaduan.index');
+    }
+
+    public function daftarPengaduan(Request $request)
     {
         $data = Pengaduan::with('user', 'jenisPengaduan')
             ->whereIn('status', ['baru', 'diperbaiki'])
@@ -215,7 +220,6 @@ class PengaduanController extends Controller
                 ->rawColumns(['aksi', 'status', 'pengaduan'])
                 ->make(true);
         }
-        return view('admin.pengaduan.index');
     }
 
     public function detailSyarat($id)

@@ -132,7 +132,7 @@
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             aLengthMenu: [[5, 10, 50, -1],[ 5, 10, 50, 'Semua']],
             ajax: {
-                url:"{{ route('admin.index') }}",
+                url:"{{ route('daftar.pengaduan') }}",
                 type: 'GET',
                 data: function(d){
                     d.status = $('#status').val(),//this is the main point

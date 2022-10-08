@@ -13,7 +13,7 @@ use App\Http\Controllers\JenisSyaratController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\GuestController;
 
-Route::get('/', function (){
+Route::get('/', function () {
     return view('guest.index');
 });
 Auth::routes();
@@ -47,7 +47,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('jenis-pengaduan/{id}/edit', [JenisPengaduanController::class, 'edit'])->name('jenis-pengaduan.edit');
     Route::put('jenis-pengaduan/{id}/update', [JenisPengaduanController::class, 'update'])->name('jenis-pengaduan.update');
     Route::delete('jenis-pengaduan/{id}/delete', [JenisPengaduanController::class, 'destroy'])->name('jenis-pengaduan.destroy');
-    
+
     Route::get('admin/jenis-syarat', [JenisSyaratController::class, 'index'])->name('jenis-syarat.index');
     Route::post('admin/jenis-syarat/store', [JenisSyaratController::class, 'store']);
     Route::post('admin/jenis-syarat', [JenisSyaratController::class, 'update'])->name('jenis-syarat.update');
@@ -83,14 +83,14 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('jenis-syarat', [PendudukController::class, 'getSyaratJenis']);
     // Route::get('admin/jenis-syarat', [JenisSyaratController::class, 'daftarJenisSyarat'])->name('list.syarat');
 
-
+    Route::get('daftar-pengaduan', [PengaduanController::class, 'daftarPengaduan'])->name('daftar.pengaduan');
     Route::get('admin/pengaduan', [PengaduanController::class, 'adminIndex'])->name('admin.index');
     Route::get('pengaduan/semua', [PengaduanController::class, 'allPengaduan'])->name('allPengaduan');
     Route::get('admin/pengaduan/{id}', [PengaduanController::class, 'detailSyarat'])->name('show.pengaduan');
     Route::get('admin/pengaduan/syarat/{id}', [PengaduanController::class, 'lihatSyarat']);
     Route::post('admin/pengaduan/syarat/konfirmasi', [PengaduanController::class, 'konfirmasitSyarat'])->name('konfirmasi.syarat');
     Route::get('admin/pengaduan/update-pengaduan/{id}', [PengaduanController::class, 'updateStatusPengaduan'])->name('update.status');
-    Route::get('admin/pengaduan/konfirmasi-pengaduan/{id}', [PengaduanController::class, 'lihatPesan' ]);
+    Route::get('admin/pengaduan/konfirmasi-pengaduan/{id}', [PengaduanController::class, 'lihatPesan']);
     Route::get('admin/pengaduan/kirim-pesan', [PengaduanController::class, 'kirimPesan'])->name('send.message');
     Route::post('admin/pengaduan/kirim-sms', PengaduanController::class)->name('kirimSMS');
     Route::post('admin/pengaduan/kirim-wa', [PengaduanController::class, 'notifyWhatsApp'])->name('kirimWA');
@@ -114,4 +114,3 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::post('/penduduk', [PendudukController::class, 'store'])->name('penduduk.create');
     // Route::get('/penduduk/{id}/edit', [PendudukController::class, 'edit'])->name('edit.penduduk');
 });
-
