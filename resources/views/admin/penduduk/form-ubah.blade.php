@@ -25,11 +25,10 @@
                     <div class="col-sm-9">
                         <select name="kecamatan" id="kecamatan" class="form-control select2">
                             <option value="0">Pilih Kecamatan</option>
-                            @foreach ($kecamatan as $item)
+                            @foreach ($kecamatan->districts as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select> 
-                        {{-- <input type="text" class="form-control" name="kecamatan" autocomplete="off" placeholder="Masukkan Nama Kecamatan"> --}}
                     </div>
                 </div>
             <div class="form-group row">
@@ -39,7 +38,6 @@
                             <option value="0">Pilih Desa</option>
                             <option value=""></option>
                         </select>
-                        {{-- <input typey="text" class="form-control" name="desa" autocomplete="off" placeholder="Masukkan Nama Desa"> --}}
                     </div>
                 </div>
         </div>
@@ -77,7 +75,3 @@
                 </div>
         </div>
 </div>
-
-{{-- @section('custom_script_footer')
-<script src="{{ asset('js/pengaturan/penduduk.js') }}"></script>
-@endsection --}}

@@ -312,7 +312,7 @@ class PengaduanController extends Controller
             $data      = View::make('guest.pengaduanSaya')->with(['pengaduan' => $pengaduan])->render();
             return response()->json(['code' => 1, 'result' => $data]);
         }
-        return view('guest.myPengaduan', ['penduduk' => $penduduk]);
+        return view('guest.mYpengaduan', ['penduduk' => $penduduk]);
     }
 
     public function showPengaduan($id)
