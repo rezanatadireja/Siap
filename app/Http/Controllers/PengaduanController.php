@@ -19,7 +19,7 @@ use App\Http\Traits\MessageTrait;
 use App\Http\Traits\WhatsappTrait;
 use Twilio\Rest\Client;
 use Carbon\Carbon;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\Datatables\Datatables;
 
 
 class PengaduanController extends Controller
@@ -177,7 +177,7 @@ class PengaduanController extends Controller
                     $data = Pengaduan::whereBetween('created_at', array($request->from_date, $request->to_date))->latest();
                 }
             }
-            return Datatables()->of($data)
+            return DataTables::of($data)
                 ->filter(function ($instance) use ($request) {
                     if ($request->has('status') && $request->status != null) {
                         return $instance->where('status', $request->status);
