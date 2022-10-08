@@ -8,6 +8,8 @@ use App\Models\Penduduk;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravolt\Indonesia\IndonesiaService;
+
 
 class RegisterController extends Controller
 {
@@ -42,6 +44,13 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $kecamatan = \Indonesia::findCity(170, ['districts.villages']);
+
+        return view('auth.register', ['kecamatan' => $kecamatan]);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -58,7 +67,7 @@ class RegisterController extends Controller
             'nik' => ['required', 'max:15', 'unique:penduduks'],
             'no_kk' => ['required', 'max:15', 'unique:penduduks'],
             'no_hp' => ['required', 'max:13', 'unique:penduduks'],
-        ],[
+        ], [
             'nama.required' => 'Masukkan Nama!',
             'username.required' => 'Masukkan Username!',
             'email.required' => 'Masukkan Email!',
@@ -90,18 +99,17 @@ class RegisterController extends Controller
         ]);
 
         $warga->assignRole('warga');
-        
+
         $penduduk  = Penduduk::create([
             'nama'          => $data['nama'],
             'nik'           => $data['nik'],
             'no_kk'         => $data['no_kk'],
-            'no_hp'         => '+'. 62 . $data['no_hp'],     
-            'district_id'   => $data['kecamatan'], 
+            'no_hp'         => '+' . 62 . $data['no_hp'],
+            'district_id'   => $data['kecamatan'],
             'village_id'    => $data['desa'],
             'user_id'       => $warga->id,
         ]);
-        
-        return $warga;
 
+        return $warga;
     }
 }
