@@ -7,7 +7,7 @@
 @section('custom_style')
     <link href="{{asset('admin\stisla\plugins\datatables\css\datatabels.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin\stisla\plugins\datatables\css\dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('admin\stisla\plugins\bootstrap-daterangepicker\daterangepicker.css')}}" rel="stylesheet" />--}}
+    <link href="{{asset('admin\stisla\plugins\bootstrap-daterangepicker\daterangepicker.css')}}" rel="stylesheet" />
 @endsection
 
 @section('content')

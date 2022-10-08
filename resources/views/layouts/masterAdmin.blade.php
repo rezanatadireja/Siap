@@ -71,7 +71,7 @@
         <script src="{{ asset('admin/stisla/plugins/select2/dist/js/select2.min.js') }}"></script>
         <script src="{{ asset('admin\stisla\izitoast\js\iziToast.min.js') }}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="/js/app.js"></script>
+        <script src="{{ asset('') }}/js/app.js"></script>
         <!-- Template JS File -->
         @yield('custom_script')
         <script src="{{ asset('admin/stisla/assets/js/scripts.js') }}"></script>
