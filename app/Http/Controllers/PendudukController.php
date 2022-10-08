@@ -69,7 +69,8 @@ class PendudukController extends Controller
     public function index(Request $request)
     {
         // $penduduks = Penduduk::all();
-        $kecamatan = District::all();
+        // $kecamatan = District::all();
+        $kecamatan = \Indonesia::findCity(170, ['districts.villages']);
         if ($request->ajax()) {
             $data = Penduduk::with('user')->get();
             return Datatables::of($data)

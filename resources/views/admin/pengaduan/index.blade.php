@@ -168,7 +168,7 @@
                 {'data': 'user_name'},
                 {'data': 'jenis_bidang'},
                 {'data': 'jenis_pengaduan'},
-                {'data': 'status'},
+                {'data': 'status', 'name' : 'status'},
                 {'data': 'aksi', 'sortable': false},
         ]
         });

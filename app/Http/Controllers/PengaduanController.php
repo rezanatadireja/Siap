@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisPengaduan;
 use App\Models\JenisSyarat;
-use DataTables;
 use App\Models\Syarat;
 use App\Models\Penduduk;
 use App\Models\Pengaduan;
@@ -20,7 +19,7 @@ use App\Http\Traits\MessageTrait;
 use App\Http\Traits\WhatsappTrait;
 use Twilio\Rest\Client;
 use Carbon\Carbon;
-use Yajra\DataTables\Contracts\DataTable;
+use Yajra\Datatables\Facades\Datatables;
 
 
 class PengaduanController extends Controller
@@ -31,16 +30,16 @@ class PengaduanController extends Controller
     {
         $p = Pengaduan::where('id', $id)->pluck('jenis_pengaduan_id');
         $cek = JenisPengaduan::with('jenisSyarat')
-                                ->where('id', $p)
-                                ->withCount('jenisSyarat')
-                                ->get();
+            ->where('id', $p)
+            ->withCount('jenisSyarat')
+            ->get();
         return $cek;
     }
 
     public function show($id)
     {
         $pengaduan = Pengaduan::find($id);
-        if(request()->ajax()){
+        if (request()->ajax()) {
             $syarat    = Syarat::where('pengaduan_id', $id)->orderBy('id', 'ASC')->get(); //DisiniQueryna
             $cek = $this->cekSyarat($id);
             $data = View::make('guest.listSyarat')->with(['syarat' => $syarat, 'cek' => $cek])->render();
@@ -51,26 +50,26 @@ class PengaduanController extends Controller
 
     public function simpanSyarat(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'file' => 'required|image',
             'jenis_syarat_id' => 'required',
-        ],[
+        ], [
             'file.required' => 'Silahkan pilih file yang akan di upload',
             'file.image'    => 'Ekstensi file harus Jpg, Jpeg, Png',
             'jenis_syarat_id.required' => 'Pilihan syarat harus dipilih.',
         ]);
 
-        if(!$validator->passes()){
+        if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        }else{
+        } else {
             $path = 'files/';
             $file = $request->file('file');
-            $file_name = time().'_'.$file->getClientOriginalName();
+            $file_name = time() . '_' . $file->getClientOriginalName();
 
             $upload = $file->storeAs($path, $file_name, 'public');
-            if($upload){
+            if ($upload) {
                 Syarat::where('jenis_syarat_id', $request->jenis_syarat_id)
-                        ->where('pengaduan_id', $request->pengaduan_id)->delete();
+                    ->where('pengaduan_id', $request->pengaduan_id)->delete();
                 Syarat::create([
                     'jenis_syarat_id' => $request->jenis_syarat_id,
                     'pengaduan_id'    => $request->pengaduan_id,
@@ -102,28 +101,28 @@ class PengaduanController extends Controller
         $syarat = Syarat::find($syarat_id);
         $path = 'files/';
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'jenis_syarat_id' => 'required',
             'file_update' => 'image',
-        ],[
+        ], [
             'file_update' => 'File harus berupa gambar format: JPG, JPEG, PNG',
         ]);
 
-        if(!$validator->passes()){
+        if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        }else{
-            if($request->hasFile('file_update')){
-                $file_path = $path.$syarat->file;
+        } else {
+            if ($request->hasFile('file_update')) {
+                $file_path = $path . $syarat->file;
                 //Delete Old Syarat
-                if($syarat->file != null && Storage::disk('public')->exists($file_path)){
+                if ($syarat->file != null && Storage::disk('public')->exists($file_path)) {
                     Storage::disk('public')->delete($file_path);
                 }
                 //upload Syarat File
                 $file = $request->file('file_update');
-                $file_name = time().'_'.$file->getClientOriginalName();
+                $file_name = time() . '_' . $file->getClientOriginalName();
                 $upload = $file->storeAs($path, $file_name, 'public');
 
-                if($upload){
+                if ($upload) {
                     $syarat->update([
                         'pengaduan_id'    => $request->pengaduan_id,
                         'jenis_syarat_id' => $request->jenis_syarat_id,
@@ -133,9 +132,9 @@ class PengaduanController extends Controller
                     ]);
                     return response()->json(['code' => 1, 'msg' => 'Data Persyaratan Pengaduan berhasil diupdate.']);
                 }
-            }else{
+            } else {
                 Syarat::where('jenis_syarat_id', $request->jenis_syarat_id)
-                        ->where('pengaduan_id', $request->pengaduan_id)->delete();
+                    ->where('pengaduan_id', $request->pengaduan_id)->delete();
                 $syarat->update([
                     'pengaduan_id'    => $request->pengaduan_id,
                     'jenis_syarat_id' => $request->jenis_syarat_id,
@@ -149,42 +148,35 @@ class PengaduanController extends Controller
     {
         $syarat = Syarat::find($request->syarat_id);
         $path = 'files/';
-        $image_path = $path.$syarat->file;
-        if($syarat->file != null && Storage::disk('public')->exists($image_path)){
+        $image_path = $path . $syarat->file;
+        if ($syarat->file != null && Storage::disk('public')->exists($image_path)) {
             Storage::disk('public')->delete($image_path);
         }
 
         $query = $syarat->delete();
 
-        if($query){
+        if ($query) {
             return response()->json(['code' => 1, 'msg' => 'Data Syarat Pengaduan Berhasil dihapus.']);
-        }else{
+        } else {
             return response()->json(['code' => 0, 'msg' => 'Kesalahan dalam jaringan!']);
         }
     }
 
     public function adminIndex(Request $request)
     {
-        $jenisPengaduan = JenisPengaduan::all();
-
+        // $jenisPengaduan = JenisPengaduan::all();
+        $data = Pengaduan::with('user', 'jenisPengaduan')
+            ->whereIn('status', ['baru', 'diperbaiki'])
+            ->orderBy('created_at', 'ASC')
+            ->get();
         if ($request->ajax()) {
-            if(!empty($request->from_date)){
-                if($request->from_date === $request->to_date){
+            if (!empty($request->from_date)) {
+                if ($request->from_date === $request->to_date) {
                     $data = Pengaduan::whereDate('created_at', $request->from_date)->latest();
-                }else{
+                } else {
                     $data = Pengaduan::whereBetween('created_at', array($request->from_date, $request->to_date))->latest();
                 }
             }
-            else
-            {
-                $data = Pengaduan::with('user', 'jenisPengaduan')
-                                    ->whereIn('status', ['baru', 'diperbaiki'])
-                                    ->orderBy('created_at', 'ASC')
-                                    ->get();
-            // $data = Pengaduan::with('jenisPengaduan', 'user')->get();
-
-            }
-            // $data = Pengaduan::with('jenisPengaduan', 'penduduk')->get()
             return Datatables()->of($data)
                 ->filter(function ($instance) use ($request) {
                     if ($request->has('status') && $request->status != null) {
@@ -223,7 +215,7 @@ class PengaduanController extends Controller
                 ->rawColumns(['aksi', 'status', 'pengaduan'])
                 ->make(true);
         }
-        return view('admin.pengaduan.index', compact('jenisPengaduan'));
+        return view('admin.pengaduan.index');
     }
 
     public function detailSyarat($id)
@@ -268,19 +260,19 @@ class PengaduanController extends Controller
     public function updateStatusPengaduan($id)
     {
         $syarat = Syarat::where('pengaduan_id', $id)
-                        ->whereIn('status', ['baru', 'diperbaiki']);
+            ->whereIn('status', ['baru', 'diperbaiki']);
 
-        if($syarat->exists()){
+        if ($syarat->exists()) {
             return response()->json(['code' => 0, 'msg' => 'Pastikan syarat sudah dikonfirmasi semua!']);
-        }else{
+        } else {
             $pengaduan = Pengaduan::find($id);
             $pengaduan->status = 'diterima';
             $pengaduan->save();
 
             $pengaduanData = [
                 'subject' => 'Pengaduan ' . $pengaduan->jenisPengaduan->nama,
-                'body' => 'Pengaduan ' . $pengaduan->jenisPengaduan->nama . ' atas nama ' . $pengaduan->user->penduduk->nama . 
-                ' telah di verifikasi silahkan login untuk dapat mengunduh berkas :',
+                'body' => 'Pengaduan ' . $pengaduan->jenisPengaduan->nama . ' atas nama ' . $pengaduan->user->penduduk->nama .
+                    ' telah di verifikasi silahkan login untuk dapat mengunduh berkas :',
                 'action' => 'Klik Disini!',
                 'url'   => url('/'),
                 'thank you' => 'Terima Kasih, mohon maaf bila ada kesalahan.',
@@ -297,7 +289,7 @@ class PengaduanController extends Controller
             return response()->json(['code' => 1, 'msg' => 'Pengaduan sudah dikonfirmasi.']);
         }
     }
-    
+
     public function markAsRead()
     {
         Auth::user()->unreadNotifications->markAsRead();
@@ -320,7 +312,7 @@ class PengaduanController extends Controller
             $data      = View::make('guest.pengaduanSaya')->with(['pengaduan' => $pengaduan])->render();
             return response()->json(['code' => 1, 'result' => $data]);
         }
-        return view('guest.myPengaduan',['penduduk' => $penduduk]);
+        return view('guest.myPengaduan', ['penduduk' => $penduduk]);
     }
 
     public function showPengaduan($id)

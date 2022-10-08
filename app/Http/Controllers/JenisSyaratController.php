@@ -27,15 +27,15 @@ class JenisSyaratController extends Controller
                     return $data->nama;
                 })
                 ->addColumn('aksi', function ($data) {
-                    $button = "<a class='btn btn-primary btn-sm edit text-white' id='". $data->id ."' data-toggle='tooltip' title='' data-original-title='Lihat Pengaduan'><i class='fas fa-pencil-alt'></i></a>";
-                    $button .= "<a class='ml-1 btn btn-danger btn-sm deleteBtn text-white' data-id='". $data->id . "' data-toggle='tooltip' title='' data-original-title='Hapus Syarat'><i class='fas fa-trash'></i></a>";
+                    $button = "<a class='btn btn-primary btn-sm edit text-white' id='" . $data->id . "' data-toggle='tooltip' title='' data-original-title='Lihat Pengaduan'><i class='fas fa-pencil-alt'></i></a>";
+                    $button .= "<a class='ml-1 btn btn-danger btn-sm deleteBtn text-white' data-id='" . $data->id . "' data-toggle='tooltip' title='' data-original-title='Hapus Syarat'><i class='fas fa-trash'></i></a>";
                     return $button;
                 })
                 ->rawColumns(['aksi'])
                 ->smart(true)
                 ->make(true);
         }
-        return view('admin.JenisSyarat.index', ['jenisPengaduan' => $JenisPengaduan]);
+        return view('admin.jenisSyarat.index', ['jenisPengaduan' => $JenisPengaduan]);
     }
 
     /**
@@ -57,34 +57,34 @@ class JenisSyaratController extends Controller
     public function store(Request $request)
     {
         // if(Request()->ajax()){
-            $validator = Validator::make($request->all(), [
-                'nama'                  => 'required|unique:jenis_syarats',
-                'jenis_pengaduan_id'    => 'required',
-            ],[
-                'nama.required'                 => 'Nama jenis syarat tidak boleh kosong.',
-                'nama.unique'                   => 'Nama jenis syarat sudah ada.',
-                'jenis_pengaduan_id.required'   => 'Jenis pengaduan tidak boleh kosong'
-            ]);
-    
-            if($validator->fails()){
-                return response()->json(['code' => 0, 'errors' => $validator->messages()]);
-            }else{
-                $data                       = new JenisSyarat;
-                $data->nama                 = $request->input('nama');
-                $data->jenis_pengaduan_id   = $request->input('jenis_pengaduan_id');
-                $data->save();
+        $validator = Validator::make($request->all(), [
+            'nama'                  => 'required|unique:jenis_syarats',
+            'jenis_pengaduan_id'    => 'required',
+        ], [
+            'nama.required'                 => 'Nama jenis syarat tidak boleh kosong.',
+            'nama.unique'                   => 'Nama jenis syarat sudah ada.',
+            'jenis_pengaduan_id.required'   => 'Jenis pengaduan tidak boleh kosong'
+        ]);
 
-                // JenisSyarat::create([
-                //     'nama'                  => $request->input('nama'),
-                //     'jenis_pengaduan_id'    => $request->input('jenis_pengaduan_id')
-                // ]);
-                return response()->json(['code' => 1, 'msg' => 'Jenis syarat pengaduan berhasil disimpan.']);
-                // $save = $this->storeJenis($request->all());
-                // if($save == ''){
-                // }else{
-                    // return response()->json(['code' => 2, 'msg' => 'Jenis syarat pengaduan gagal disimpan.']);
-                // }
-            }
+        if ($validator->fails()) {
+            return response()->json(['code' => 0, 'errors' => $validator->messages()]);
+        } else {
+            $data                       = new JenisSyarat;
+            $data->nama                 = $request->input('nama');
+            $data->jenis_pengaduan_id   = $request->input('jenis_pengaduan_id');
+            $data->save();
+
+            // JenisSyarat::create([
+            //     'nama'                  => $request->input('nama'),
+            //     'jenis_pengaduan_id'    => $request->input('jenis_pengaduan_id')
+            // ]);
+            return response()->json(['code' => 1, 'msg' => 'Jenis syarat pengaduan berhasil disimpan.']);
+            // $save = $this->storeJenis($request->all());
+            // if($save == ''){
+            // }else{
+            // return response()->json(['code' => 2, 'msg' => 'Jenis syarat pengaduan gagal disimpan.']);
+            // }
+        }
         // }
     }
 
@@ -151,7 +151,7 @@ class JenisSyaratController extends Controller
         $data = JenisSyarat::find($request->id);
         // dd($data);
         $query = $data->delete();
-        if($query){
+        if ($query) {
             return response()->json(['code' => 1, 'msg' => 'Data Syarat Pelayanan Pengaduan Berhasil dihapus.']);
         } else {
             return response()->json(['code' => 0, 'msg' => 'Kesalahan dalam jaringan!']);
