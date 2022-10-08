@@ -81,9 +81,6 @@
     <script src="{{ asset('admin\stisla\plugins\datatables\js\jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('admin\stisla\plugins\datatables\js\dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('admin\stisla\plugins\bootstrap-daterangepicker\daterangepicker.js')}}"></script>
-@endsection
-
-@section('custom_script_footer')
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -174,4 +171,8 @@
         });
     }
     </script>
+@endsection
+
+@section('custom_script_footer')
+    
 @endsection

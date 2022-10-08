@@ -164,11 +164,11 @@ class PengaduanController extends Controller
 
     public function adminIndex(Request $request)
     {
-        // $jenisPengaduan = JenisPengaduan::all();
         $data = Pengaduan::with('user', 'jenisPengaduan')
             ->whereIn('status', ['baru', 'diperbaiki'])
             ->orderBy('created_at', 'ASC')
             ->get();
+
         if ($request->ajax()) {
             if (!empty($request->from_date)) {
                 if ($request->from_date === $request->to_date) {
