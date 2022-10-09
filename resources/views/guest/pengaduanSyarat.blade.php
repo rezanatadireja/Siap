@@ -59,7 +59,6 @@
                                             <tbody class="text-center">
                                                 <tr>
                                                     <th>No Kartu Keluarga</th>
-                                                    <th>Kecamatan</th>
                                                     <th>Email</th>
                                                     <th>No. HP</th>
                                                     <th>Jenis Pelayanan Pengaduan</th>

@@ -48,7 +48,6 @@
 <script>
     $('#formulir').DataTable({
             processing: true,
-            serverSide: true,
             responsive: true,
             ordering: true, // Set true agar bisa di sorting
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
