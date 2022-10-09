@@ -5,8 +5,10 @@
 @endsection
 
 @section('custom_style')
-    <link href="{{asset('admin\stisla\plugins\datatables\css\datatabels.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('admin\stisla\plugins\datatables\css\dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+    {{-- <link href="{{asset('admin\stisla\plugins\datatables\css\datatabels.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin\stisla\plugins\datatables\css\dataTables.bootstrap4.min.css')}}" rel="stylesheet" /> --}}
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" /> --}}
     <link href="{{asset('admin\stisla\plugins\bootstrap-daterangepicker\daterangepicker.css')}}" rel="stylesheet" />
 @endsection
 
@@ -78,8 +80,10 @@
 @endsection
 
 @section('custom_script')
-    <script src="{{ asset('admin\stisla\plugins\datatables\js\jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('admin\stisla\plugins\datatables\js\dataTables.bootstrap4.min.js')}}"></script>
+    {{-- <script src="{{ asset('admin\stisla\plugins\datatables\js\jquery.dataTables.min.js')}}"></script> --}}
+    {{-- <script src="{{ asset('admin\stisla\plugins\datatables\js\dataTables.bootstrap4.min.js')}}"></script> --}}
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('admin\stisla\plugins\bootstrap-daterangepicker\daterangepicker.js')}}"></script>
     <script>
         $(document).ready(function () {
@@ -88,9 +92,9 @@
                     'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
                 }
             })
+            load_data();
         });
 
-        load_data();
 
         $('.datepicker').daterangepicker({
             locale: {format: 'YYYY-MM-DD'},

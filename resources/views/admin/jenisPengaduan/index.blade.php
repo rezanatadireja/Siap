@@ -42,8 +42,8 @@
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->kuota }}</td>
                         <td class="text-center ">
-                        <a class="btn btn-primary btn-action mr-1 btn-edit" href="#" data-id="{{ $data->id }}" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                        <a class="btn btn-danger btn-action swal-confirm" data-toggle="tooltip" title="" data-original-title="Delete" data-id="{{ $data->id }}"><i class="fas fa-trash"></i>
+                        <a class="btn btn-primary btn-sm mr-1 btn-edit" href="#" data-id="{{ $data->id }}" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger btn-sm text-white swal-confirm" data-toggle="tooltip" title="" data-original-title="Delete" data-id="{{ $data->id }}"><i class="fas fa-trash"></i>
                             <form action="{{ route( 'jenis-pengaduan.destroy', $data->id )}}" method="POST" id="delete{{ $data->id }}">
                                 @csrf
                                 @method('delete')
