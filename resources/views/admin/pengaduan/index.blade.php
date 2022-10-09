@@ -132,7 +132,7 @@
         function load_data(from_date = '', to_date = '', status = ''){
             $('#list-pengaduan').DataTable({
             processing: true,
-            serverSide: true,
+            // serverSide: true,
             responsive: true,
             ordering: true, // Set true agar bisa di sorting
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
