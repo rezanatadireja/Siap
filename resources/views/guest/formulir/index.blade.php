@@ -46,13 +46,14 @@
 
 @section('custom_script_footer')
 <script>
+    var url = window.location
     $('#formulir').DataTable({
             processing: true,
             responsive: true,
             ordering: true, // Set true agar bisa di sorting
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             aLengthMenu: [[5, 10, 50, -1],[ 5, 10, 50, 'Semua']],
-            ajax: "{{ route('formulirGuest') }}",
+            ajax: url,
             language: {
                 url: "{{asset('js/id.js')}}"
             },

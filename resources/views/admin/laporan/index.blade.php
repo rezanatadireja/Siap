@@ -152,6 +152,8 @@
             $('#maxP').val(to_date)
         });
 
+        var url = window.location
+
         function load_pengaduan(from_date = '', to_date = ''){
             $('#data-pengaduan').DataTable({
                 // dom: "<'row'<'col-xs-12'<'col-xs-6'l><'col-xs-6'p>>r>"+
@@ -162,7 +164,7 @@
                 searching: true,
                 responsive: true,
                 ajax: {
-                    url: "{{route('laporan-pengaduan')}}",
+                    url: url,
                     method: 'GET',
                     data: function(d){
                         d.from_date = from_date,
