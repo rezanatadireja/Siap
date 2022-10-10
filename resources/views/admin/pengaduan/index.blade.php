@@ -134,7 +134,6 @@
 
         function load_data(from_date = '', to_date = '', status = ''){
             var url = window.location
-
             $('#list-pengaduan').DataTable({
             processing: true,
             // serverSide: true,

@@ -119,6 +119,7 @@
         });
 
         $('#list-jenis-syarat').DataTable({
+            headers:{ 'X-CSRF-Token': $('input[name="_token"]').val() },
             processing: true,
             serverSide: true,
             responsive: true,
