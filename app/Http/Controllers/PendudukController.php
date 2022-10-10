@@ -229,8 +229,7 @@ class PendudukController extends Controller
     public function edit($id)
     {
         $penduduk = Penduduk::find($id);
-        $kecamatan = District::all();
-        $desa = Village::all();
+        $kecamatan = \Indonesia::findCity(170, ['districts.villages']);
 
         if ($penduduk) {
             return response()->json([
@@ -239,7 +238,6 @@ class PendudukController extends Controller
                 'username' => $penduduk->user->username,
                 // 'email' => $penduduk->user->email,
                 'kecamatan' => $kecamatan,
-                'desa' => $desa,
             ]);
         } else {
             return response()->json([
