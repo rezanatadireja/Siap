@@ -116,7 +116,7 @@ $(document).ready(function(){
                         position: 'topRight',
                     })
                     $(form)[0].reset();
-                    $('#list-jenis-syarat').DataTable().ajax.reload()
+                    $('#list-penduduk').DataTable().ajax.reload()
                 }
             }
         });
@@ -185,7 +185,7 @@ $(document).ready(function(){
                                 message: data.msg,
                                 position: 'topRight',
                             })
-                            $('#list-jenis-syarat').DataTable().ajax.reload()
+                            $('#list-penduduk').DataTable().ajax.reload()
                         } else {
                             alert(data.msg)
                         }
