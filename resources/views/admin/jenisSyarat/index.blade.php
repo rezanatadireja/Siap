@@ -118,15 +118,16 @@
             }
         });
 
+
+        var url = window.location
         $('#list-jenis-syarat').DataTable({
-            headers:{ 'X-CSRF-Token': $('input[name="_token"]').val() },
             processing: true,
             serverSide: true,
             responsive: true,
             ordering: true, // Set true agar bisa di sorting
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             aLengthMenu: [[10, 50, -1],[ 10, 50, 'Semua']],
-            ajax: "{{ route('jenis-syarat.index') }}",
+            ajax: url,
             language: {
                 url: "{{asset('js/id.js')}}"
             },
