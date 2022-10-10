@@ -81,5 +81,14 @@
         {{-- <script src="{{ asset('admin/stisla/assets/js/page/index.js') }}"></script> --}}
         @include('vendor.lara-izitoast.toast')
         @yield('custom_script_footer')
+        <script src="//js.pusher.com/7.2.0/pusher.min.js"></script>
+        <script>
+            var pusher = new Pusher("MY_PUSHER_KEY", {
+                channelAuthorization: {
+                transport: "jsonp",
+                endpoint: "http://myserver.com/pusher_jsonp_auth",
+                },
+            });
+        </script>
     </body>
 </html>
