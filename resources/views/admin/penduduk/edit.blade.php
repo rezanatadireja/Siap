@@ -33,7 +33,7 @@
                                 {{ Form::label('kecamatan', 'Kecamatan'.':', ['class'=>'col-sm-3 text-right']) }}
                                     <div class="col-sm-9">
                                         <select name="edit_kecamatan" id="edit_kecamatan" class="form-control select2">
-                                            <option value="0">Pilih Kecamatan</option>
+                                            {{-- <option value="0">Pilih Kecamatan</option> --}}
                                             @foreach ($kecamatan as $key => $item)
                                                 <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
                                             @endforeach
