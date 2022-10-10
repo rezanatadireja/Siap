@@ -76,7 +76,7 @@ $(document).ready(function(){
             $('#edit_desa').empty();
             $('#edit_desa').append('<option value="0" disable="true" selected="true">Pilih Desa</option>');
             $.each(data, function (index, villagesObj) {
-                $('#edit_desa').append('<option value="' + villagesObj.id + '">' + villagesObj.name + '</option>');
+                $('#edit_desa').append('<option value="' + villagesObj.id + '" selected>' + villagesObj.name + '</option>');
             })
         });
     });

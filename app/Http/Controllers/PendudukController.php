@@ -236,7 +236,6 @@ class PendudukController extends Controller
                 'code' => 1,
                 'penduduk' => $penduduk,
                 'username' => $penduduk->user->username,
-                // 'email' => $penduduk->user->email,
                 'kecamatan' => $kecamatan,
             ]);
         } else {
