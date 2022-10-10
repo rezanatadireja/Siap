@@ -43,7 +43,7 @@
                             <select name="edit_kecamatan" id="edit_kecamatan" class="form-control select2">
                                 <option value="">Pilih Kecamatan</option>
                                 @foreach ($kecamatan->districts as $key => $item)
-                                <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" selected="true">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                             {{-- <input type="text" class="form-control" name="kecamatan" autocomplete="off" placeholder="Masukkan Nama Kecamatan"> --}}
