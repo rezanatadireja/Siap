@@ -95,6 +95,9 @@
                 }
             })
             load_data();
+
+            var url = window.location
+            console.log(url)
         });
 
 
@@ -130,6 +133,8 @@
         })
 
         function load_data(from_date = '', to_date = '', status = ''){
+            var url = window.location
+
             $('#list-pengaduan').DataTable({
             processing: true,
             // serverSide: true,
@@ -138,7 +143,7 @@
             order: [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             aLengthMenu: [[5, 10, 50, -1],[ 5, 10, 50, 'Semua']],
             ajax: {
-                url:"{{ route('daftar.pengaduan') }}",
+                url:url,
                 type: 'GET',
                 data: function(d){
                     d.status = $('#status').val(),//this is the main point

@@ -162,8 +162,59 @@ class PengaduanController extends Controller
         }
     }
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
+        $data = Pengaduan::with('user', 'jenisPengaduan')
+            ->whereIn('status', ['baru', 'diperbaiki'])
+            ->orderBy('created_at', 'ASC')
+            ->get();
+
+        if ($request->ajax()) {
+            if (!empty($request->from_date)) {
+                if ($request->from_date === $request->to_date) {
+                    $data = Pengaduan::whereDate('created_at', $request->from_date)->latest();
+                } else {
+                    $data = Pengaduan::whereBetween('created_at', array($request->from_date, $request->to_date))->latest();
+                }
+            }
+            return DataTables::of($data)
+                ->filter(function ($instance) use ($request) {
+                    if ($request->has('status') && $request->status != null) {
+                        return $instance->where('status', $request->status);
+                    }
+                })
+                ->addColumn('user_name', function ($data) {
+                    return $data->user->penduduk->nama;
+                })
+                ->addColumn('nik', function ($data) {
+                    return $data->user->penduduk->nik;
+                })
+                ->addColumn('jenis_pengaduan', function ($data) {
+                    return $data->jenisPengaduan->nama;
+                })
+                ->addColumn('jenis_bidang', function ($data) {
+                    return $data->jenisPengaduan->subBidang->nama;
+                })
+                ->editColumn('created_at', function ($data) {
+                    return [
+                        'display' => e($data->created_at->format('d/m/Y')),
+                        'timestamp' => $data->created_at->timestamp
+                    ];
+                })
+                ->addColumn('aksi', function ($data) {
+                    $button = "<a class='btn btn-primary btn-sm btn-edit text-white' id='" . $data->id . "' data-toggle='tooltip' title='' href='pengaduan/" . $data->id . "' data-original-title='Lihat Pengaduan'><i class='fas fa-pencil-alt'></i></a>";
+                    return $button;
+                })
+                ->addColumn('status', function ($data) {
+                    if ($data->status == 'baru') {
+                        return '<div class="badge badge-warning"><i class="fab fa-font-awesome-flag"></i> Baru</div>';
+                    } elseif ($data->status == 'diterima') {
+                        return '<div class="badge badge-success"><i class="fas fa-check-circle"></i> Diterima</div>';
+                    }
+                })
+                ->rawColumns(['aksi', 'status', 'pengaduan'])
+                ->make(true);
+        }
         return view('admin.pengaduan.index');
     }
 
