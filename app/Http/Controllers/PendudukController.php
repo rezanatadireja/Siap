@@ -128,7 +128,7 @@ class PendudukController extends Controller
             'nama'          => $request->nama,
             'nik'           => $request->nik,
             'no_kk'         => $request->no_kk,
-            'no_hp'         => $request->no_hp,
+            'no_hp'         => '+' . 62 . $request->no_hp,
             'district_id'   => $request->kecamatan,
             'village_id'    => $request->desa,
             'user_id'       => $warga->id,
