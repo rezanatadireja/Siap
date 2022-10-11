@@ -167,10 +167,9 @@
                         $.each(data.errors, function (key, err_values) {
                             $('#listError').append('<li>' + err_values + '</li>');
                         });
-                        // console.log(form)
                     }else if(data.code == 1){
                         $(form)[0].reset();
-                        $('#addSyaratPengaduanModal').hide();
+                        $('#addSyaratPengaduanModal').modal('hide');
                         iziToast.success({
                             title: 'Sukses',
                             message: data.msg,
@@ -227,6 +226,7 @@
                     } else {
                         $(form)[0].reset();
                         iziToast.success({
+                            title: 'Sukses',
                             message: data.msg,
                             position: 'topRight',
                         })
