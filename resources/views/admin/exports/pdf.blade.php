@@ -68,7 +68,7 @@
                 <tr>
                     <td>{{ $item->created_at->format('d-m-Y')}}</td>
                     <td>{{ $item->user->penduduk->nik }}</td>
-                    <td>{{ucwords( $item->user->name )}}</td>
+                    <td>{{ucwords( $item->user->penduduk->nama )}}</td>
                     <td>{{ $item->jenisPengaduan->subBidang->nama }}</td>
                     <td>{{ $item->jenisPengaduan->nama }}</td>
                     <td>{{ucwords($item->status) }}</td>
