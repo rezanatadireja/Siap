@@ -66,9 +66,9 @@
             <tbody>
             @foreach($data as $item)
                 <tr>
-                    <td>{{ $item->created_at->diffForHumans()}}</td>
+                    <td>{{ $item->created_at->format('Y-m-d')}}</td>
                     <td>{{ $item->user->penduduk->nik }}</td>
-                    <td>{{ $item->user->name }}</td>
+                    <td>{{ $item->user->penduduk->nama }}</td>
                     <td>{{ $item->jenisPengaduan->subBidang->nama }}</td>
                     <td>{{ $item->jenisPengaduan->nama }}</td>
                     <td>{{ $item->status }}</td>
