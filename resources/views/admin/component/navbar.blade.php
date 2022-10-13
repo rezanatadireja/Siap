@@ -90,7 +90,7 @@
               </div>
               <div class="dropdown-item-desc">
                 Pengaduan masuk <b>{{$notification->data['jenis_pelayanan']}}</b> atas Nama <b>{{$notification->data['name']}}</b>
-                <div class="time">{{ $notification->created_at->diffForHumans() }} <i>{{ $notification->data['user_id'] }}</i></div>
+                <div class="time">{{ $notification->created_at->diffForHumans() }}</div>
               </div>
             </a>
           @empty

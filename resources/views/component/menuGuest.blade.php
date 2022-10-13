@@ -92,7 +92,7 @@
                 </div>
                 <div class="dropdown-item-desc">
                 Pengaduan<b> {{$notification->data['jenis_pelayanan']}}</b><b> {{ucwords($notification->data['status_pengaduan'])}}, silahkan download dokumen diprofil pengaduan.</b>
-                <div class="time">12 Hours Ago</div>
+                <div class="time">{{ $notification->created_at->diffForHumans() }}</div>
                 </div>
             </a>
             @empty
