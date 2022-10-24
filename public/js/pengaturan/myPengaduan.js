@@ -75,7 +75,7 @@ $(function () {
             var syarat_modal = $('.showSyarat')
             $(syarat_modal).find('a').attr('href', '/storage/files/' + data.file)
             $(syarat_modal).find('a').attr('data-caption', '' + data.nama)
-            $(syarat_modal).find('img').attr('src', '/storage/files/' + data.file)
+            $(syarat_modal).find('img').attr('src', '/files/' + data.file)
             $(syarat_modal).find('input[name="jenisSyarat_id"]').val(data.nama)
             $(syarat_modal).modal('show')
         }, 'json')
